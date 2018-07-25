@@ -1,6 +1,6 @@
 {
   "name": "motion-pwa-wallet",
-  "short_name": "motion-pwa-wallet",
+  "short_name": "Motion Wallet",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
