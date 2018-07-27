@@ -1,25 +1,3 @@
-<template>
-  <div id="app">
-    <Header />
-    <router-view/>
-    <Navbar />
-  </div>
-</template>
-
-<script>
-import Header from '@/components/Common/Header.vue';
-import Navbar from '@/components/Common/Navbar.vue';
-
-export default {
-  components: {
-    Header,
-    Navbar,
-  },
-};
-</script>
-
-
-<style lang="scss">
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
@@ -50,15 +28,3 @@ $link-focus-border: $primary;
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
-
-#app {
-  font-family: 'Open Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #ececec;
-  background-color: $primary;
-  min-height: 100vh;
-  padding-bottom: 60px;
-}
-</style>
