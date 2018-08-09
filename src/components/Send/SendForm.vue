@@ -30,8 +30,7 @@
             v-model="sendData.amount">
         </div>
       </div>
-
-      <button type="submit" class="button is-primary">Send</button>
+      <button type="submit" class="button is-primary" :disabled="!isFormValid">Send</button>
     </form>
   </div>
 </template>
@@ -48,6 +47,13 @@ export default {
     };
   },
   computed: {
+    isFormValid() {
+      let isValid = false;
+      if (this.sendData.address && this.sendData.amount) {
+        isValid = true;
+      }
+      return isValid;
+    },
     confirmedBalance() {
       // return 0;
       return this.$store.state.Wallet.balance;
