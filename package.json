@@ -23,7 +23,8 @@
     "vue2-hammer": "^1.0.7",
     "vue2-touch-events": "^1.0.0",
     "vuex": "^3.0.1",
-    "vuex-persist": "^1.4.3"
+    "vuex-persist": "^1.4.3",
+    "wallet-address-validator": "https://github.com/Chinafreak/wallet-address-validator"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.5",

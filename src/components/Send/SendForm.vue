@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import WAValidator from 'wallet-address-validator';
+
 export default {
   props: ['address'],
   data() {
@@ -49,7 +51,10 @@ export default {
   computed: {
     isFormValid() {
       let isValid = false;
-      if (this.sendData.address && this.sendData.amount) {
+      if (this.sendData.address &&
+        this.sendData.amount &&
+        WAValidator.validate(this.sendData.address, 'XMN') &&
+        this.sendData.amount <= this.confirmedBalance) {
         isValid = true;
       }
       return isValid;
@@ -64,15 +69,17 @@ export default {
       this.$store.dispatch('updateBalance');
     },
     confirmSend() {
-      this.$dialog.confirm({
-        title: 'Confirm Transaction',
-        message: `You are about to send <b>${this.sendData.amount}</b> to <b>${this.sendData.address}</b>. 0.00001 XMN will be added as tx fees \
-         thats a total of <b>${Number(this.sendData.amount) + 0.00001} XMN</b>. Do you want to continue?`,
-        confirmText: 'Continue',
-        type: 'is-success',
-        hasIcon: true,
-        onConfirm: () => this.sendCoins(),
-      });
+      if (this.isFormValid) {
+        this.$dialog.confirm({
+          title: 'Confirm Transaction',
+          message: `You are about to send <b>${this.sendData.amount}</b> to <b>${this.sendData.address}</b>. 0.00001 XMN will be added as tx fees \
+           thats a total of <b>${Number(this.sendData.amount) + 0.00001} XMN</b>. Do you want to continue?`,
+          confirmText: 'Continue',
+          type: 'is-success',
+          hasIcon: true,
+          onConfirm: () => this.sendCoins(),
+        });
+      }
     },
     sendCoins() {
       if (this.confirmedBalance >= (Number(this.sendData.amount) + 0.00001)) {

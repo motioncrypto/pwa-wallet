@@ -5394,6 +5394,10 @@ jsqr@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/jsqr/-/jsqr-1.1.1.tgz#a0d7f95e6c3b0bec913dfef2ca64a877f28ed05f"
 
+jssha@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/jssha/-/jssha-1.6.0.tgz#67acf0b90fdebb9bb3fe3a44e6016cf2cf0670b9"
+
 killable@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.0.tgz#da8b84bd47de5395878f95d64d02f2449fe05e6b"
@@ -8872,6 +8876,12 @@ walker@~1.0.5:
   resolved "https://registry.yarnpkg.com/walker/-/walker-1.0.7.tgz#2f7f9b8fd10d677262b18a884e28d19618e028fb"
   dependencies:
     makeerror "1.0.x"
+
+"wallet-address-validator@https://github.com/Chinafreak/wallet-address-validator":
+  version "0.1.5"
+  resolved "https://github.com/Chinafreak/wallet-address-validator#e52d34db42bc3cab7fa7172613ec429895b86328"
+  dependencies:
+    jssha "1.6.0"
 
 watch@~0.18.0:
   version "0.18.0"
