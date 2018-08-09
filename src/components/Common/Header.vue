@@ -5,6 +5,15 @@
 </template>
 
 <style lang="scss" scoped>
+#header {
+  @media screen and (max-width: $break-mobile) {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: $primary;
+  }
+}
 .logo {
   max-height: 100px;
   margin-top: 30px;

@@ -19,7 +19,12 @@ export default {
   methods: {
     onDecode(decodedString) {
       this.paused = true;
-      console.log(decodedString);
+      if (decodedString.split(':')[0] === 'motion') {
+        const walletAddress = decodedString.split(':')[1];
+        this.$router.push(`/send/${walletAddress}`);
+      } else {
+        this.$router.push(`/send/${decodedString}`);
+      }
     },
   },
 };

@@ -7,11 +7,11 @@
         <span class="separator"></span>
       </div>
 
-      <Move :date="new Date()" :wallet="'MNdmVuzATvExYbo5eikSiQAHBXV2dS8ktg'" :amount="10" />
-      <Move :date="new Date()" :wallet="'MNdmVuzATvExYbo5eikSiQAHBXV2dS8ktg'" :amount="10" />
-      <Move :date="new Date()" :wallet="'MNdmVuzATvExYbo5eikSiQAHBXV2dS8ktg'" :amount="10" />
-      <Move :date="new Date()" :wallet="'MNdmVuzATvExYbo5eikSiQAHBXV2dS8ktg'" :amount="10" />
-      <Move :date="new Date()" :wallet="'MNdmVuzATvExYbo5eikSiQAHBXV2dS8ktg'" :amount="10" />
+      <Move v-for="(tx, index) in txsByDate" v-bind:key="index"
+        :date="new Date(tx.date * 1000)"
+        :wallet="tx.wallet"
+        :amount="tx.value"
+        :type="tx.type" />
     </div>
   </div>
 </template>
@@ -24,6 +24,29 @@ export default {
   components: {
     Balance,
     Move,
+  },
+  computed: {
+    txs() {
+      return this.$store.state.Transactions.txs;
+    },
+    txsByDate() {
+      const transactions = this.$store.state.Transactions.txs;
+      transactions.sort((a, b) => new Date(b.date * 1000) - new Date(a.date * 1000));
+      return transactions;
+    },
+  },
+  methods: {
+    refresh() {
+      return this.$store.dispatch('updateBalance');
+    },
+    updateTxs() {
+      this.$store.dispatch('updateTxs');
+    },
+  },
+  mounted() {
+    this.$store._vm.$root.$on('storageReady', () => {
+      this.updateTxs();
+    });
   },
 };
 </script>

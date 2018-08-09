@@ -2,7 +2,7 @@
   <div id="send">
     <Title title="Send" />
     <div class="container">
-      <send-form />
+      <send-form :address="$route.params.address" />
     </div>
   </div>
 </template>

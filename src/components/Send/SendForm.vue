@@ -5,22 +5,29 @@
         <p>Current Balance</p>
       </div>
       <div class="right">
-        <p>888 <span class="bolder">XMN</span></p>
+        <p>{{confirmedBalance}} <span class="bolder">XMN</span></p>
       </div>
     </div>
 
-    <form>
+    <form @submit.prevent="confirmSend">
       <div class="field">
         <label class="label">Please enter the destination XMN Wallet Address</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Motion Wallet">
+          <input class="input"
+            type="text"
+            placeholder="Motion Wallet"
+            v-model="sendData.address">
         </div>
       </div>
 
       <div class="field">
         <label class="label">Amount to send</label>
         <div class="control">
-          <input class="input" type="number" placeholder="Motion Wallet">
+          <input class="input"
+            type="number"
+            step="0.0000000001"
+            placeholder="Motion Wallet"
+            v-model="sendData.amount">
         </div>
       </div>
 
@@ -28,6 +35,61 @@
     </form>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['address'],
+  data() {
+    return {
+      sendData: {
+        address: '',
+        amount: null,
+      },
+    };
+  },
+  computed: {
+    confirmedBalance() {
+      // return 0;
+      return this.$store.state.Wallet.balance;
+    },
+  },
+  methods: {
+    updateBalance() {
+      this.$store.dispatch('updateBalance');
+    },
+    confirmSend() {
+      this.$dialog.confirm({
+        title: 'Confirm Transaction',
+        message: `You are about to send <b>${this.sendData.amount}</b> to <b>${this.sendData.address}</b>. 0.00001 XMN will be added as tx fees \
+         thats a total of <b>${Number(this.sendData.amount) + 0.00001} XMN</b>. Do you want to continue?`,
+        confirmText: 'Continue',
+        type: 'is-success',
+        hasIcon: true,
+        onConfirm: () => this.sendCoins(),
+      });
+    },
+    sendCoins() {
+      if (this.confirmedBalance >= (Number(this.sendData.amount) + 0.00001)) {
+        this.$store.dispatch('sendCoins', {
+          sendData: this.sendData,
+        });
+      } else {
+        this.$toast.open({
+          message: 'You haven\'t enought balance',
+          queue: false,
+        });
+      }
+    },
+  },
+  mounted() {
+    this.updateBalance();
+
+    if (this.address) {
+      this.sendData.address = this.address;
+    }
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 #scan-form {

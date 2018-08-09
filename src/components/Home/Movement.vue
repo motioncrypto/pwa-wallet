@@ -1,7 +1,8 @@
 <template>
   <div class="move">
     <div class="left-side">
-      <i class="far fa-arrow-alt-circle-down"></i>
+      <i class="far fa-arrow-alt-circle-down" v-if="type === 'receive'"></i>
+      <i class="far fa-arrow-alt-circle-up red" v-if="type === 'send'"></i>
     </div>
     <div class="right-side">
       <div class="top">
@@ -21,7 +22,7 @@
 
 <script>
 export default {
-  props: ['date', 'amount', 'wallet'],
+  props: ['date', 'amount', 'wallet', 'type'],
 };
 </script>
 
@@ -42,6 +43,10 @@ export default {
   i {
     color: #1E8DE0;
     font-size: 3em;
+
+    &.red {
+      color: red;
+    }
   }
 
   display: grid;
@@ -65,6 +70,7 @@ export default {
 
     .top .amount {
       float: right;
+      margin-left: 20px;
     }
 
     .bolder {
@@ -75,7 +81,11 @@ export default {
       width: 100%;
 
       p {
-        font-size: 0.8em;
+        font-size: 1em;
+
+        @media screen and (max-width: $break-mobile) {
+          font-size: 0.8em;
+        }
       }
     }
   }

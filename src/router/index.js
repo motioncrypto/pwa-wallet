@@ -28,7 +28,7 @@ export default new Router({
       component: Scan,
     },
     {
-      path: '/send',
+      path: '/send/:address?',
       name: 'send',
       component: Send,
     },

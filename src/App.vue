@@ -15,6 +15,14 @@ export default {
     Header,
     Navbar,
   },
+  mounted() {
+    // Perform an initial load
+    this.$store._vm.$root.$on('storageReady', () => {
+      if (!this.$store.state.Wallet.wallets.length) {
+        this.$store.dispatch('generateWallet', 'Main Wallet');
+      }
+    });
+  },
 };
 </script>
 
@@ -60,5 +68,9 @@ $link-focus-border: $primary;
   background-color: $primary;
   min-height: 100vh;
   padding-bottom: 60px;
+  @media screen and (max-width: $break-mobile) {
+    padding-top: 60px;
+  }
+  overflow-x: hidden;
 }
 </style>

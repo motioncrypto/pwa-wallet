@@ -1,9 +1,31 @@
 <template>
   <div id="balance">
     <p>Current Balance</p>
-    <h2>888 <span class="bold">XMN</span></h2>
+    <h2>{{confirmedBalance}} <span class="bold">XMN</span></h2>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    confirmedBalance() {
+      // return 0;
+      return this.$store.state.Wallet.balance;
+    },
+  },
+  methods: {
+    updateBalance() {
+      this.$store.dispatch('updateBalance');
+    },
+  },
+  mounted() {
+    this.$store._vm.$root.$on('storageReady', () => {
+      this.updateBalance();
+    });
+  },
+};
+</script>
+
 
 <style lang="scss" scoped>
 #balance {

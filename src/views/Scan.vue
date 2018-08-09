@@ -18,3 +18,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+#scan {
+  overflow: hidden;
+  max-height: 90vh;
+}
+</style>

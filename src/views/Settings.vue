@@ -2,8 +2,8 @@
   <div id="settings">
     <Title title="Settings" />
     <div class="container">
-      <button>Change Pin</button>
-      <button>Get my Private Key</button>
+      <!-- <button>Change Pin</button> -->
+      <button @click="getPrivateKey">Get my Private Key</button>
     </div>
   </div>
 </template>
@@ -14,6 +14,18 @@ import Title from '@/components/Common/Title.vue';
 export default {
   components: {
     Title,
+  },
+  methods: {
+    getPrivateKey() {
+      this.$dialog.confirm({
+        title: 'Private keys',
+        message: 'Please retreive your private keys clicking on the wallet you desire to export the key.',
+        confirmText: 'Ok',
+        type: 'is-info',
+        hasIcon: true,
+        onConfirm: () => this.$router.push('/receive'),
+      });
+    },
   },
 };
 </script>

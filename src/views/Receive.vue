@@ -5,7 +5,8 @@
       <Wallet v-for="(wallet, index) in wallets" v-bind:key="index"
         :title="wallet.name"
         :wallet="wallet.address"
-        :amount="wallet.balance" />
+        :amount="wallet.balance"
+        :wif="wallet.wif" />
       <NewWallet />
     </div>
   </div>
@@ -26,6 +27,8 @@ export default {
     wallets() {
       return this.$store.state.Wallet.wallets;
     },
+  },
+  methods: {
   },
 };
 </script>
