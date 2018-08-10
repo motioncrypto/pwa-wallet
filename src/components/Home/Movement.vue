@@ -66,6 +66,9 @@ export default {
     .top .date {
       float: left;
       color: #4D4D4D;
+      @media screen and (max-width: $break-mobile) {
+        font-size: 0.8em;
+      }
     }
 
     .top .amount {
