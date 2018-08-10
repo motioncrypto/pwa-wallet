@@ -3,7 +3,7 @@
     <b-notification v-if="updateAvailable" type="is-info">
       A <b>new update is available</b> with amazing new features.
       <span class="underlined" @click="refreshPage">Click here to update</span>
-      or just refreshthe app.
+      or just refresh the app.
     </b-notification>
     <Header />
     <router-view/>
