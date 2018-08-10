@@ -40,7 +40,7 @@ export default {
     localStorage.setItem('updateAvailable', false);
 
     window.setInterval(() => {
-      if (localStorage.getItem('updateAvailable')) {
+      if (localStorage.getItem('updateAvailable') !== 'false') {
         this.updateAvailable = true;
       }
     }, 60000);
