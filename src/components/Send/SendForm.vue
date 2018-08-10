@@ -25,7 +25,7 @@
         <div class="control">
           <input class="input"
             type="number"
-            step="0.0000000001"
+            step="0.000001"
             placeholder="Motion Wallet"
             v-model="sendData.amount">
         </div>
@@ -54,7 +54,8 @@ export default {
       if (this.sendData.address &&
         this.sendData.amount &&
         WAValidator.validate(this.sendData.address, 'XMN') &&
-        this.sendData.amount <= this.confirmedBalance) {
+        this.sendData.amount <= this.confirmedBalance &&
+        this.sendData.amount > 0) {
         isValid = true;
       }
       return isValid;

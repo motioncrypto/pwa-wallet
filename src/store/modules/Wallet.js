@@ -61,10 +61,6 @@ const actions = {
     dispatch('updateBalance');
   },
   updateBalance({ state, commit }) {
-    commit('UPDATE_BALANCE', {
-      balance: 0,
-      unconfirmed: 0,
-    });
     const promises = [];
 
     // Obtain balance from all wallets and update all
@@ -75,6 +71,10 @@ const actions = {
     })));
 
     return axios.all(promises).then((results) => {
+      commit('UPDATE_BALANCE', {
+        balance: 0,
+        unconfirmed: 0,
+      });
       results.forEach((response) => {
         if (response.data.success) {
           commit('UPDATE_BALANCE', {

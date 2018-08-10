@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <b-notification type="is-info">
+      A <b>new update is available</b> with amazing new features.
+      <span class="underlined" @click="refreshPage">Click here to update</span>
+      or just refreshthe app.
+    </b-notification>
     <Header />
     <router-view/>
     <Navbar />
@@ -11,9 +16,19 @@ import Header from '@/components/Common/Header.vue';
 import Navbar from '@/components/Common/Navbar.vue';
 
 export default {
+  data() {
+    return {
+      updateAvailable: false,
+    };
+  },
   components: {
     Header,
     Navbar,
+  },
+  methods: {
+    refreshPage() {
+      window.location.reload(true);
+    },
   },
   mounted() {
     // Perform an initial load
@@ -22,6 +37,13 @@ export default {
         this.$store.dispatch('generateWallet', 'Main Wallet');
       }
     });
+    localStorage.setItem('updateAvailable', false);
+
+    window.setInterval(() => {
+      if (localStorage.getItem('updateAvailable')) {
+        this.updateAvailable = true;
+      }
+    }, 60000);
   },
 };
 </script>
@@ -72,5 +94,15 @@ $link-focus-border: $primary;
     padding-top: 60px;
   }
   overflow-x: hidden;
+
+  .underlined {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .notification {
+    position: relative;
+    z-index: 99999999999999999999;
+  }
 }
 </style>
