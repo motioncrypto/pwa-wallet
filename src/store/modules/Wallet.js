@@ -60,6 +60,40 @@ const actions = {
     });
     dispatch('updateBalance');
   },
+  importPrivateKey({ rootState, commit, dispatch }, payload) {
+    try {
+      const keyPair = bitcoin.ECPair.fromWIF(payload.privateKey, rootState.Settings.network);
+      const wif = payload.privateKey;
+      const { address } = bitcoin.payments.p2pkh({
+        pubkey: keyPair.publicKey,
+        network: rootState.Settings.network,
+      });
+
+      commit('ADD_WALLET', {
+        wallet: {
+          address,
+          wif,
+          name: payload.name,
+          balance: 0,
+          unconfirmed: 0,
+        },
+      });
+      Toast.open({
+        duration: 5000,
+        message: 'Wallet imported successfully',
+        position: 'is-bottom',
+        type: 'is-success',
+      });
+      dispatch('updateBalance');
+    } catch (error) {
+      Toast.open({
+        duration: 5000,
+        message: String(error),
+        position: 'is-bottom',
+        type: 'is-danger',
+      });
+    }
+  },
   updateBalance({ state, commit }) {
     const promises = [];
 
