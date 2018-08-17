@@ -4,7 +4,7 @@
     <b-modal :active.sync="isModalActive">
       <div class="card">
         <b-tabs v-model="activeTab">
-          <b-tab-item label="Generate new wallet" icon="plus">
+          <b-tab-item label="New wallet" icon="plus">
             <div class="card-content">
               <form @submit.prevent="generateNewWallet">
                 <b-field label="Wallet name">
@@ -17,7 +17,7 @@
               </form>
             </div>
           </b-tab-item>
-          <b-tab-item label="Import private key" icon="file-import">
+          <b-tab-item label="Private key" icon="file-import">
             <div class="card-content">
               <form @submit.prevent="importPrivateKey">
                 <b-field label="Wallet name">
